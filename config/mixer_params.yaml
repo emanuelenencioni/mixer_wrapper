@@ -1,0 +1,9 @@
+/**:
+  ros__parameters:
+    # Serial port configuration
+    serial_port: "/dev/ttyTHS1"  # Can be /dev/ttyTHS0, /dev/ttyTHS1, /dev/ttyTHS2, etc.
+    
+    # Calibration parameters
+    enable_calibration: false
+    calibration_duration_sec: 1.0
+    calibration_command_value: 100.0
