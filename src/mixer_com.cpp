@@ -32,7 +32,6 @@ public:
   // Declare parameters for calibration
   this->declare_parameter<bool>("enable_calibration", false);
   this->declare_parameter<double>("calibration_duration_sec", 1.0);
-  this->declare_parameter<double>("calibration_command_value", 100.0);
   this->declare_parameter<std::string>("serial_port", "/dev/ttyTHS1");
   
   // Set parameter callback
@@ -77,10 +76,6 @@ private:
       else if (param.get_name() == "calibration_duration_sec") {
         g_dCalibrationDurationSec = param.as_double();
         RCLCPP_INFO(this->get_logger(), "Calibration duration set to: %.2f sec", g_dCalibrationDurationSec);
-      }
-      else if (param.get_name() == "calibration_command_value") {
-        calibration_command_value_ = param.as_double();
-        RCLCPP_INFO(this->get_logger(), "Calibration command value set to: %.2f", calibration_command_value_);
       }
       else if (param.get_name() == "serial_port") {
         // Serial port change requires node restart
@@ -129,7 +124,6 @@ private:
   Com *c;
   double dSteeringSetPoint = 0;
   double  dThrottleSetPoint = 0;
-  double calibration_command_value_ = 100.0;
 
   //std::chrono::steady_clock::time_point g_dLinearActuatorStartTime;
   std::chrono::steady_clock::time_point g_dCalibrationStartTime;
@@ -166,7 +160,7 @@ void timer_callback(){
   if(g_bStartCalibration){
     g_dCalibrationStartTime = std::chrono::steady_clock::now();     
     RCLCPP_INFO(this->get_logger(), "Send Command /CALIBRATION/: START UART TX for %.1f s", g_dCalibrationDurationSec);
-    g_sDataToSend.COM_0 = calibration_command_value_*RESIZE;
+    g_sDataToSend.COM_0 = 100*RESIZE;
     g_bStartCalibration = false;	
   }        
     
