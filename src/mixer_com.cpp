@@ -197,6 +197,7 @@ void timer_callback(){
 
   m_pBaro_msg->header.stamp  = time;
   m_pGps_msg->header.stamp  = time;
+  m_pRtk_msg->header.stamp  = time;
   m_pImu_msg->header.stamp  = time;
   
   if(l_RxFrame.GPS_SYSTEM_ERROR == 1)
